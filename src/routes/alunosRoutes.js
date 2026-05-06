@@ -33,6 +33,9 @@ router.get("/", verificarToken, ctrl.listar)
  *           example:
  *             nome: João
  *             cpf: 12345678900
+ *             telefone: 11999999999
+ *             email: joao@example.com
+ *             data_nascimento: 1990-01-01
  *             plano_id: 1
  *     responses:
  *       200:
@@ -59,11 +62,16 @@ router.post("/", verificarToken, ctrl.criar)
  *         application/json:
  *           example:
  *             nome: João Atualizado
+ *             cpf: 12345678900
+ *             telefone: 11999999999
+ *             email: joao_atualizado@example.com
+ *             data_nascimento: 1990-01-01
+ *             plano_id: 1
  *     responses:
  *       200:
  *         description: Atualizado
  */
-router.put("/:id", verificarToken, ctrl.editar)
+router.put("/:id", verificarToken, ctrl.editarAluno)
 
 /**
  * @swagger

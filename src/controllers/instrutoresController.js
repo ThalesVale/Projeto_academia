@@ -16,20 +16,24 @@ export const criar = async (req, res) => {
 }
 
 // EDITAR
-export const editar = async (req, res) => {
+export const editarInstrutor = async (req, res) => {
   const { id } = req.params
   const { nome, especialidade } = req.body
 
-  await instrutoresModels.atualizarInstrutor(id, nome, especialidade)
+  await instrutoresModels.editarInstrutor(id, nome, especialidade)
 
   res.json({ msg: "Atualizado" })
 }
 
 // DELETAR
 export const deletar = async (req, res) => {
-  const { id } = req.params
+    try {
+        const { id } = req.params;
 
-  await instrutoresModels.deletarInstrutor(id)
+        await instrutoresModels.deletarInstrutor(id);
 
-  res.json({ msg: "Deletado" })
-}
+        res.json({ msg: "Instrutor deletado com sucesso" });
+    } catch (error) {
+        res.status(500).json({ msg: "Erro ao deletar instrutor", error: error.message });
+    }
+};

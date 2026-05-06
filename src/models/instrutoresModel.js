@@ -12,7 +12,7 @@ export const criarInstrutor = (nome, especialidade) => {
 }
 
 // EDITAR
-export const editar = async (id, nome, especialidade) => {
+export const editarInstrutor = async (id, nome, especialidade) => {
   await conexao.query(
     "UPDATE instrutores SET nome=?, especialidade=? WHERE id=?",
     [nome, especialidade, id]
@@ -20,6 +20,14 @@ export const editar = async (id, nome, especialidade) => {
 }
 
 // DELETAR
-export const deletar = async (id) => {
-  await conexao.query("DELETE FROM instrutores WHERE id=?", [id])
-}
+export const deletarInstrutor = async (id) => {
+    const conn = await conexao.getConnection();
+    try {
+        await conn.query(
+            "DELETE FROM instrutores WHERE id = ?",
+            [id]
+        );
+    } finally {
+        conn.release();
+    }
+};

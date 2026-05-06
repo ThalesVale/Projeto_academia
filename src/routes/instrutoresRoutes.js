@@ -63,7 +63,7 @@ router.post("/", verificarToken, ctrl.criar)
  *       200:
  *         description: Atualizado
  */
-router.put("/:id", verificarToken, ctrl.editar)
+router.put("/:id", verificarToken, ctrl.editarInstrutor)
 
 /**
  * @swagger

@@ -11,7 +11,7 @@ export const criarPlano = (nome, descricao, valor, duracao) => {
   )
 }
 
-export const editar = async (id, nome, valor) => {
+export const editarPlano = async (id, nome, valor) => {
   await conexao.query(
     "UPDATE planos SET nome=?, valor=? WHERE id=?",
     [nome, valor, id]
@@ -20,8 +20,14 @@ export const editar = async (id, nome, valor) => {
   res.json({ msg: "Atualizado" })
 }
 
-export const deletar = async (req, res) => {
-  const { id } = req.params
-  await conexao.query("DELETE FROM planos WHERE id=?", [id])
-  res.json({ msg: "Deletado" })
-}
+export const deletarPlano = async (id) => {
+    const conn = await conexao.getConnection();
+    try {
+        await conn.query(
+            "DELETE FROM planos WHERE id = ?",
+            [id]
+        );
+    } finally {
+        conn.release();
+    }
+};

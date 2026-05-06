@@ -20,16 +20,20 @@ export const editar = async (req, res) => {
   const { id } = req.params
   const { presente, observacao } = req.body
 
-  await frequenciasModels.editar(id, presente, observacao)
+  await frequenciasModels.editarFrequencia(id, presente, observacao)
 
   res.json({ msg: "Atualizado" })
 }
 
 // DELETAR
 export const deletar = async (req, res) => {
-  const { id } = req.params
+    try {
+        const { id } = req.params;
 
-  await frequenciasModels.deletar(id)
+        await frequenciasModels.deletarFrequencia(id);
 
-  res.json({ msg: "Deletado" })
-}
+        res.json({ msg: "Frequência deletada com sucesso" });
+    } catch (error) {
+        res.status(500).json({ msg: "Erro ao deletar frequência", error: error.message });
+    }
+};

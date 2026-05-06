@@ -18,9 +18,9 @@
     import * as usuariosModels from "../models/usuariosModel.js";
 
 
-export const listarUsuarios = async (req, res) => {
+export const listar = async (req, res) => {
     try {
-        const usuarios = await usuariosModels.listar();
+        const usuarios = await usuariosModels.listarUsuarios();
         res.json(usuarios);
     } catch (error) {
         res.status(500).json({ msg: "Erro ao listar usuarios", error: error.message });
@@ -31,7 +31,7 @@ export const cadastrarUsuarios = async (req, res) => {
     try {
         const { nome, email, senha } = req.body;
 
-        await usuariosModels.criar(nome, email, senha);
+        await usuariosModels.criarUsuario(nome, email, senha);
 
         res.status(201).json({ msg: "Usuário cadastrado com sucesso" });
     } catch (error) {
@@ -66,7 +66,7 @@ export const editarUsuario = async (req, res) => {
             return res.status(404).json({ msg: "Usuário não encontrado" });
         }
 
-        await usuariosModels.atualizar(id, nome, email);
+        await usuariosModels.editarUsuario(id, nome, email);
 
         res.json({ msg: "Usuário atualizado com sucesso" });
     } catch (error) {
@@ -84,7 +84,7 @@ export const deletarUsuario = async (req, res) => {
             return res.status(404).json({ msg: "Usuário não encontrado" });
         }
 
-        await usuariosModels.deletar(id);
+        await usuariosModels.deletarUsuario(id);
 
         res.json({ msg: "Usuário deletado com sucesso" });
     } catch (error) {

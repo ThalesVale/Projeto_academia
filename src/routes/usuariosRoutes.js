@@ -1,7 +1,7 @@
 import express from "express";
 import { verificarToken } from "../middlewares/authmiddleware.js";
 import {
-    listarUsuarios,
+    listar,
     cadastrarUsuarios,
     buscarUsuarioPorId,
     editarUsuario,
@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", verificarToken, listarUsuarios);
+router.get("/", verificarToken, listar);
 router.post("/", verificarToken, cadastrarUsuarios);
 router.get("/:id", verificarToken, buscarUsuarioPorId);
 router.put("/:id", verificarToken, editarUsuario);

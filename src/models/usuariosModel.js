@@ -6,7 +6,7 @@
 import conexao from "../config/db.js";
 import bcrypt from "bcryptjs";
 
-export const listar = async () => {
+export const listarUsuarios = async () => {
     const conn = await conexao.getConnection();
     try {
         const [rows] = await conn.query(
@@ -18,7 +18,7 @@ export const listar = async () => {
     }
 };
 
-export const criar = async (nome, email, senha) => {
+export const criarUsuario = async (nome, email, senha) => {
     const conn = await conexao.getConnection();
     try {
         const senhaHash = await bcrypt.hash(senha, 10);
@@ -47,7 +47,7 @@ export const buscarPorId = async (id) => {
     }
 };
 
-export const atualizar = async (id, nome, email) => {
+export const editarUsuario = async (id, nome, email) => {
     const conn = await conexao.getConnection();
     try {
         await conn.query(
@@ -59,7 +59,7 @@ export const atualizar = async (id, nome, email) => {
     }
 };
 
-export const deletar = async (id) => {
+export const deletarUsuario = async (id) => {
     const conn = await conexao.getConnection();
     try {
         await conn.query(

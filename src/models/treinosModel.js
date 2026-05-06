@@ -22,7 +22,7 @@ export const criarTreino = (aluno_id, instrutor_id, nome, descricao) => {
 }
 
 // EDITAR
-export const editar = async (id, nome_treino) => {
+export const editarTreino = async (id, nome_treino) => {
   await conexao.query(
     "UPDATE treinos SET nome_treino=? WHERE id=?",
     [nome_treino, id]
@@ -30,14 +30,14 @@ export const editar = async (id, nome_treino) => {
 }
 
 // DELETAR
-export const deletar = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    await conexao.query("DELETE FROM treinos WHERE id = ?", [id]);
-
-    return res.status(200).json({ msg: "Treino deletado com sucesso" });
-  } catch (error) {
-    return res.status(500).json({ msg: "Erro ao deletar", error });
-  }
+export const deletarTreino = async (id) => {
+    const conn = await conexao.getConnection();
+    try {
+        await conn.query(
+            "DELETE FROM treinos WHERE id = ?",
+            [id]
+        );
+    } finally {
+        conn.release();
+    }
 };

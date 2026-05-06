@@ -17,13 +17,19 @@ export const editar = async (req, res) => {
   const { id } = req.params
   const { nome, valor } = req.body
 
-  await planosModels.atualizarPlano(id, nome, valor)
+  await planosModels.editarPlano(id, nome, valor)
 
   res.json({ msg: "Atualizado" })
 }
 
 export const deletar = async (req, res) => {
-  const { id } = req.params
-  await planosModels.deletarPlano(id)
-  res.json({ msg: "Deletado" })
-}
+    try {
+        const { id } = req.params;
+
+        await planosModels.deletarPlano(id);
+
+        res.json({ msg: "Plano deletado com sucesso" });
+    } catch (error) {
+        res.status(500).json({ msg: "Erro ao deletar plano", error: error.message });
+    }
+};

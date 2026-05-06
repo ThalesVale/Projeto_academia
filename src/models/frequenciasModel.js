@@ -21,7 +21,7 @@ export const criarFrequencia = (aluno_id, data, presente, obs) => {
 }
 
 // EDITAR
-export const editar = async (req, res) => {
+export const editarFrequencia = async (req, res) => {
   const { id } = req.params
   const { presente, observacao } = req.body
 
@@ -34,10 +34,14 @@ export const editar = async (req, res) => {
 }
 
 // DELETAR
-export const deletar = async (req, res) => {
-  const { id } = req.params
-
-  await conexao.query("DELETE FROM frequencias WHERE id=?", [id])
-
-  res.json({ msg: "Deletado" })
-}
+export const deletarFrequencia = async (id) => {
+    const conn = await conexao.getConnection();
+    try {
+        await conn.query(
+            "DELETE FROM frequencias WHERE id = ?",
+            [id]
+        );
+    } finally {
+        conn.release();
+    }
+};

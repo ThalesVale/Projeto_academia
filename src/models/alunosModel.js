@@ -8,28 +8,38 @@ export const listarAlunos = () => {
   `)
 }
 
-export const criarAluno = (nome, cpf, plano_id) => {
+export const criarAluno = (nome, cpf, telefone, email, data_nascimento, plano_id) => {
   return conexao.query(
-    "INSERT INTO alunos (nome, cpf, plano_id) VALUES (?, ?, ?)",
-    [nome, cpf, plano_id]
+    "INSERT INTO alunos (nome, cpf, telefone, email, data_nascimento, plano_id) VALUES (?, ?, ?, ?, ?, ?)",
+    [nome, cpf, telefone, email, data_nascimento, plano_id]
   )
 }
 
 
-export const editar = async (req, res) => {
+export const editarAluno = async (req, res) => {
   const { id } = req.params
-  const { nome } = req.body
+  const { nome, cpf, telefone, email, data_nascimento, plano_id } = req.body
 
   await conexao.query(
-    "UPDATE alunos SET nome=? WHERE id=?",
-    [nome, id]
+    "UPDATE alunos SET nome=?, cpf=?, telefone=?, email=?, data_nascimento=?, plano_id=? WHERE id=?",
+    [nome, cpf, telefone, email, data_nascimento, plano_id, id]
   )
 
   res.json({ msg: "Atualizado" })
 }
 
-export const deletar = async (req, res) => {
-  const { id } = req.params
-  await conexao.query("DELETE FROM alunos WHERE id=?", [id])
-  res.json({ msg: "Deletado" })
-}
+// export const deletarAluno = async (req, res) => {
+//   const { id } = req.params
+//   await conexao.query("DELETE FROM alunos WHERE id=?", [id])
+//   res.json({ msg: "Deletado" })
+export const deletarAluno = async (id) => {
+    const conn = await conexao.getConnection();
+    try {
+        await conn.query(
+            "DELETE FROM alunos WHERE id = ?",
+            [id]
+        );
+    } finally {
+        conn.release();
+    }
+};

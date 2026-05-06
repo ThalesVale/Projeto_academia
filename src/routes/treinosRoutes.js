@@ -16,7 +16,7 @@ const router = Router()
  *       200:
  *         description: Lista de treinos
  */
-router.get("/", verificarToken, ctrl.listar)
+router.get("/", verificarToken, ctrl.listarTreinos)
 
 /**
  * @swagger
@@ -39,7 +39,7 @@ router.get("/", verificarToken, ctrl.listar)
  *       200:
  *         description: Treino criado
  */
-router.post("/", verificarToken, ctrl.criar)
+router.post("/", verificarToken, ctrl.criarTreino)
 
 /**
  * @swagger
@@ -64,7 +64,7 @@ router.post("/", verificarToken, ctrl.criar)
  *       200:
  *         description: Atualizado
  */
-router.put("/:id", verificarToken, ctrl.editar)
+router.put("/:id", verificarToken, ctrl.editarTreino)
 
 /**
  * @swagger
